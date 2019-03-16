@@ -8,24 +8,45 @@ const app = express();
 
 app.use(cors());
 
+let users = {
+  1: {
+    id: '1',
+    username: 'Lionel Kung Fu',
+    email: 'lion@kungfu.com',
+  },
+  2: {
+    id: '2',
+    username: 'Bruce Lee',
+    email: 'mr@kungfu.com',
+  },
+};
+
+const me = users[1];
+
 const schema = gql`
   type Query {
     me: User
+    user(id: ID!): User
+    users: [User!]
   }
 
   type User {
+    id: ID!
     username: String!
-    email: String!
+    email: String
   }
 `;
 
 const resolvers = {
   Query: {
     me: () => {
-      return {
-        username: 'Lionel Kung Fu',
-        email: 'lion@kung-fu.com',
-      };
+      return me;
+    },
+    user: (parent, { id }) => {
+      return users[id];
+    },
+    users: () => {
+      return Object.values(users);
     },
   },
 };

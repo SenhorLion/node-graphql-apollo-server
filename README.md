@@ -2,7 +2,7 @@
 
 Implements server-side architecture using GraphQL and Apollo Server.
 
-**Based on `Simple Node Server with Babel` and [The Road to GraphQL](https://roadtoreact.com/course-details?courseId=THE_ROAD_TO_GRAPHQL) authored by [Robin Wieruch](https://www.robinwieruch.de/minimal-node-js-babel-setup)**
+**Based on [Simple Node Server with Babel](https://www.robinwieruch.de/minimal-node-js-babel-setup) and [The Road to GraphQL](https://roadtoreact.com/course-details?courseId=THE_ROAD_TO_GRAPHQL) authored by [Robin Wieruch](https://www.robinwieruch.de/)**
 
 ## Features
 
@@ -21,8 +21,7 @@ TODO: List all deps etc...
 
 ## Installation
 
-- `git clone git@github.com:rwieruch/node-babel-server.git`
-- `cd node-babel-server`
+- `git clone`
 - `npm install`
 - `npm start`
-- optional: include _.env_ in your _.gitignore_
+- `http://localhost:8000/graphql` to test queries
