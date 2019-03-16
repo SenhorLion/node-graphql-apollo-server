@@ -15,13 +15,46 @@ Implements server-side architecture using GraphQL and Apollo Server.
 ## Requirements
 
 - [node & npm](https://nodejs.org/en/)
-- [express](https://expressjs.com/)
-
-TODO: List all deps etc...
+- [git](https://git-scm.com/)
 
 ## Installation
 
-- `git clone`
+- `git clone git@github.com:SenhorLion/node-graphql-apollo-server.git`
 - `npm install`
 - `npm start`
 - `http://localhost:8000/graphql` to test queries
+
+## GraphQL API
+
+**Get list of users:**
+
+```
+{
+    users {
+        username
+        email
+    }
+}
+```
+
+**Get user by id:**
+
+```
+{
+    user(id: "2") {
+        username
+        email
+    }
+}
+```
+
+**Get 'computed' user:**
+
+```
+{
+    me {
+        username
+        email
+    }
+}
+```
