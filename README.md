@@ -1,23 +1,28 @@
-# Simple Node Server with Babel
+# A Node GraphQL Apollo Server example
 
-[![Build Status](https://travis-ci.org/rwieruch/node-babel-server.svg?branch=master)](https://travis-ci.org/rwieruch/node-babel-server) [![Slack](https://slack-the-road-to-learn-react.wieruch.com/badge.svg)](https://slack-the-road-to-learn-react.wieruch.com/) [![Greenkeeper badge](https://badges.greenkeeper.io/rwieruch/node-babel-server.svg)](https://greenkeeper.io/)
+Implements server-side architecture using GraphQL and Apollo Server.
 
-An easy way to get started with JavaScript on the command line. [Read more about it](https://www.robinwieruch.de/minimal-node-js-babel-setup).
+**Based on `Simple Node Server with Babel` and [The Road to GraphQL](https://roadtoreact.com/course-details?courseId=THE_ROAD_TO_GRAPHQL) authored by [Robin Wieruch](https://www.robinwieruch.de/minimal-node-js-babel-setup)**
 
 ## Features
 
-* Babel 7
-* Environment Variables
+- GraphQL
+- Apollo Server
+- Express
+- Babel 7
+- Environment Variables
 
 ## Requirements
 
-* [node & npm](https://nodejs.org/en/)
-* [git](https://www.robinwieruch.de/git-essential-commands/)
+- [node & npm](https://nodejs.org/en/)
+- [express](https://expressjs.com/)
+
+TODO: List all deps etc...
 
 ## Installation
 
-* `git clone git@github.com:rwieruch/node-babel-server.git`
-* `cd node-babel-server`
-* `npm install`
-* `npm start`
-* optional: include *.env* in your *.gitignore*
+- `git clone git@github.com:rwieruch/node-babel-server.git`
+- `cd node-babel-server`
+- `npm install`
+- `npm start`
+- optional: include _.env_ in your _.gitignore_
