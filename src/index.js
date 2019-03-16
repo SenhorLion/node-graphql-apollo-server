@@ -2,8 +2,11 @@ import 'dotenv/config';
 
 import express from 'express';
 import { ApolloServer, gql } from 'apollo-server-express';
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors());
 
 const schema = gql`
   type Query {
@@ -12,6 +15,7 @@ const schema = gql`
 
   type User {
     username: String!
+    email: String!
   }
 `;
 
@@ -20,6 +24,7 @@ const resolvers = {
     me: () => {
       return {
         username: 'Lionel Kung Fu',
+        email: 'lion@kung-fu.com',
       };
     },
   },
