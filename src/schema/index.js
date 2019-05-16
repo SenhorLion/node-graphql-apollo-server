@@ -1,32 +1,24 @@
 import { gql } from 'apollo-server-express';
 
-const schema = gql`
+// All schema now moved to Domain specific files
+// - user
+// - message
+
+import userSchema from './user';
+import messageSchema from './message';
+
+const linkSchema = gql`
   type Query {
-    me: User
-    user(id: ID!): User
-    users: [User!]
-    messages: [Message!]!
-    message(id: ID!): Message!
+    _: Boolean
   }
 
   type Mutation {
-    createMessage(text: String!): Message
-    deleteMessage(id: ID!): Boolean!
-    updateMessage(id: ID!, text: String!): Boolean!
+    _: Boolean
   }
 
-  type User {
-    id: ID!
-    username: String!
-    email: String
-    messages: [Message!]
-  }
-
-  type Message {
-    id: ID!
-    text: String!
-    user: User!
+  type Subscription {
+    _: Boolean
   }
 `;
 
-export default schema;
+export default [linkSchema, userSchema, messageSchema];
