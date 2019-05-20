@@ -11,11 +11,13 @@ Implements server-side architecture using GraphQL and Apollo Server.
 - Express
 - Babel 7
 - Environment Variables
+- PostgreSQL
 
 ## Requirements
 
 - [node & npm](https://nodejs.org/en/)
 - [git](https://git-scm.com/)
+- PostgreSQL installed
 
 ## Installation
 
@@ -341,3 +343,23 @@ Or false:
   }
 }
 ```
+
+## PostgresSQL
+
+After install ation of PostgresSQL
+
+Start:
+
+`pg_ctl -D /usr/local/var/postgres start`
+
+Stop:
+
+`pg_ctl -D /usr/local/var/postgres stop`
+
+Create a DB:
+
+`createdb mydatabasename`
+
+Drop a DB:
+
+`dropdb mydatabasename`
