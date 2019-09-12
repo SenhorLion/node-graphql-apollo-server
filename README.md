@@ -12,6 +12,7 @@ Implements server-side architecture using GraphQL and Apollo Server.
 - Babel 7
 - Environment Variables
 - PostgreSQL
+- Sequelize
 
 ## Requirements
 
@@ -21,10 +22,27 @@ Implements server-side architecture using GraphQL and Apollo Server.
 
 ## Installation
 
+**GraphQL Layer**
+
 - `git clone git@github.com:SenhorLion/node-graphql-apollo-server.git`
 - `npm install`
 - `npm start`
 - `http://localhost:8000/graphql` to test queries
+
+**PostgreSQL**
+
+Install PostgreSQL:
+_NB: for mac use Homebrew_
+
+```bash
+brew update
+brew install postgresql
+```
+
+- `npm run start:db` - will start up PostgreSQL
+- `npm run stop:db` - will stop PostgreSQL
+- `createdb mydatabasename`
+- `dropdb mydatabasename`
 
 ## GraphQL API
 
@@ -346,7 +364,7 @@ Or false:
 
 ## PostgresSQL
 
-After install ation of PostgresSQL
+After installation of PostgresSQL
 
 Start:
 

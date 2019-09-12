@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
+    "start:db": "pg_ctl -D /usr/local/var/postgres start",
+    "stop:db": "pg_ctl -D /usr/local/var/postgres stop",
     "test": "echo \"No test specified\" && exit 0"
   },
   "keywords": [],
