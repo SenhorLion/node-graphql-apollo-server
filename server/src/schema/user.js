@@ -7,10 +7,22 @@ export default gql`
     users: [User!]
   }
 
+  extend type Mutation {
+    signUp(
+      username: String!
+      password: String!
+      email: String!
+    ): Token
+  }
+
+  type Token {
+    token: String!
+  }
+
   type User {
     id: ID!
     username: String!
-    email: String
+    email: String!
     messages: [Message!]
   }
 `;

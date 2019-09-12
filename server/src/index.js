@@ -44,6 +44,8 @@ const createUsersWithMessages = async () => {
   await models.User.create(
     {
       username: 'lionela',
+      email: 'lion@me.com',
+      password: '1234567',
       messages: [
         {
           text: 'Lorem ipsum dolor sitamec',
@@ -56,6 +58,8 @@ const createUsersWithMessages = async () => {
   await models.User.create(
     {
       username: 'zavi',
+      email: 'zavi@me.com',
+      password: '1234567',
       messages: [
         {
           text: 'Booba is King!',
