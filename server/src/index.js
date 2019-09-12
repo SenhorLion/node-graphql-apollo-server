@@ -26,7 +26,7 @@ const server = new ApolloServer({
 // Add Express as middleware, and specify path to graphql API
 server.applyMiddleware({ app, path: '/graphql' });
 
-const eraseDatabaseOnSync = true;
+const eraseDatabaseOnSync = false;
 
 const createUsersWithMessages = async () => {
   await models.User.create(

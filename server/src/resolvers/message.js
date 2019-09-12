@@ -6,7 +6,7 @@ export default {
       return await models.Message.findAll();
     },
     message: async (parent, { id }, { models }) => {
-      return await models.Message.findOne({ where: { id } });
+      return await models.Message.findByPk(id);
     },
   },
 
@@ -16,28 +16,36 @@ export default {
       // models.messages[id] = message;
       // models.users[me.id].messageIds.push(id);
 
-      return await models.Message.create({
-        text,
-        userId: me.id,
-      });
+      try {
+        return await models.Message.create({
+          text,
+          userId: me.id,
+        });
+      } catch (error) {
+        throw new Error(error);
+      }
     },
 
     deleteMessage: async (parent, { id }, { models }) => {
       return await models.Message.destroy({ where: { id } });
     },
 
-    updateMessage: (parent, { id, text }, { models }) => {
-      const { [id]: message } = models.messages;
+    updateMessage: async (parent, { id, text }, { models }) => {
+      console.log('MESSAGE TO UPDATE', id, text);
 
-      console.log('MESSAGE TO UPDATE', message);
-
-      if (!message) {
-        return false;
+      try {
+        return await models.Message.update(
+          { text },
+          { returning: true, where: { id } },
+        );
+      } catch (error) {
+        throw new Error(error);
       }
 
-      message.text = text;
-
-      return true;
+      // Book.update(
+      //   {title: req.body.title},
+      //   {returning: true, where: {id: req.params.bookId} }
+      // )
     },
   },
 
