@@ -1,8 +1,12 @@
 import 'dotenv/config';
 
 import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
+import {
+  ApolloServer,
+  AuthenticationError,
+} from 'apollo-server-express';
 import cors from 'cors';
+import jwt from 'jsonwebtoken';
 
 import models, { sequelize } from './models';
 import schema from './schema';
@@ -13,6 +17,19 @@ const app = express();
 app.use(cors());
 
 // const me = users[1];
+
+const getMe = async req => {
+  const token = req.headers['x-token'];
+
+  if (token) {
+    try {
+      return await jwt.verify(token, process.env.TOKEN_SECRET);
+      // todo: get user
+    } catch (error) {
+      throw new AuthenticationError('Token not valid please sign in');
+    }
+  }
+};
 
 const server = new ApolloServer({
   typeDefs: schema,
@@ -29,17 +46,20 @@ const server = new ApolloServer({
       message,
     };
   },
-  context: async () => ({
-    models,
-    me: await models.User.findByLogin('lionela'),
-    secret: process.env.TOKEN_SECRET,
-  }),
+  context: async ({ req }) => {
+    const me = await getMe(req);
+    return {
+      models,
+      me,
+      secret: process.env.TOKEN_SECRET,
+    };
+  },
 });
 
 // Add Express as middleware, and specify path to graphql API
 server.applyMiddleware({ app, path: '/graphql' });
 
-const eraseDatabaseOnSync = false;
+const eraseDatabaseOnSync = true;
 
 const createUsersWithMessages = async () => {
   await models.User.create(
