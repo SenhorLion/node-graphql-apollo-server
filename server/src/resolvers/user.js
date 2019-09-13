@@ -1,4 +1,15 @@
-const createToken = async user => {};
+import jwt from 'jsonwebtoken';
+import { AuthenticationError, UserInputError } from 'apollo-server';
+
+const createToken = async (user, secret, expiresIn) => {
+  const { id, email, username } = user;
+
+  console.log('@createToken', { id }, { email }, { username });
+
+  return await jwt.sign({ id, email, username }, secret, {
+    expiresIn,
+  });
+};
 
 export default {
   Query: {
@@ -21,7 +32,7 @@ export default {
     signUp: async (
       parent,
       { username, email, password },
-      { models },
+      { models, secret },
     ) => {
       const user = await models.User.create({
         username,
@@ -30,8 +41,36 @@ export default {
       });
 
       return {
-        token: createToken(user),
+        token: createToken(user, secret, '30s'),
       };
+    },
+    signIn: async (
+      parent,
+      { login, password },
+      { models, secret },
+    ) => {
+      // todo
+      const user = await models.User.findByLogin(login);
+
+      if (!user) {
+        throw new AuthenticationError(
+          'No user found, please check your credentials',
+        );
+      }
+
+      const isValid = await user.validatePassword(password);
+
+      if (!isValid) {
+        throw new UserInputError('Cant signin, invalid password');
+      }
+
+      console.log({ user });
+
+      return {
+        token: createToken(user, secret, '30m'),
+      };
+
+      // todo validate user
     },
   },
 
