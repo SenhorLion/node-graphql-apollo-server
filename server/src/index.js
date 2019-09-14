@@ -16,15 +16,13 @@ const app = express();
 
 app.use(cors());
 
-// const me = users[1];
-
 const getMe = async req => {
   const token = req.headers['x-token'];
+  console.log('@getMe', { token });
 
   if (token) {
     try {
       return await jwt.verify(token, process.env.TOKEN_SECRET);
-      // todo: get user
     } catch (error) {
       throw new AuthenticationError('Token not valid please sign in');
     }
@@ -48,6 +46,8 @@ const server = new ApolloServer({
   },
   context: async ({ req }) => {
     const me = await getMe(req);
+
+    console.log('@context', { me });
     return {
       models,
       me,
@@ -59,7 +59,7 @@ const server = new ApolloServer({
 // Add Express as middleware, and specify path to graphql API
 server.applyMiddleware({ app, path: '/graphql' });
 
-const eraseDatabaseOnSync = true;
+const eraseDatabaseOnSync = false;
 
 const createUsersWithMessages = async () => {
   await models.User.create(

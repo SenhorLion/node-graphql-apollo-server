@@ -1,7 +1,7 @@
 import uuidv4 from 'uuid/v4';
 import { combineResolvers } from 'graphql-resolvers';
 
-import { isAuthed } from './auth';
+import { isAuthenticated, isMessageOwner } from './auth';
 
 export default {
   Query: {
@@ -15,12 +15,8 @@ export default {
 
   Mutation: {
     createMessage: combineResolvers(
-      isAuthed,
+      isAuthenticated,
       async (parent, { text }, { me, models }) => {
-        // update / mutate data
-        // models.messages[id] = message;
-        // models.users[me.id].messageIds.push(id);
-
         try {
           return await models.Message.create({
             text,
@@ -32,13 +28,15 @@ export default {
       },
     ),
 
-    deleteMessage: async (parent, { id }, { models }) => {
-      return await models.Message.destroy({ where: { id } });
-    },
+    deleteMessage: combineResolvers(
+      isAuthenticated,
+      isMessageOwner,
+      async (parent, { id }, { models }) => {
+        return await models.Message.destroy({ where: { id } });
+      },
+    ),
 
     updateMessage: async (parent, { id, text }, { models }) => {
-      console.log('MESSAGE TO UPDATE', id, text);
-
       try {
         return await models.Message.update(
           { text },
@@ -47,11 +45,6 @@ export default {
       } catch (error) {
         throw new Error(error);
       }
-
-      // Book.update(
-      //   {title: req.body.title},
-      //   {returning: true, where: {id: req.params.bookId} }
-      // )
     },
   },
 

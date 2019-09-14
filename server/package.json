@@ -7,6 +7,7 @@
     "start": "nodemon --exec babel-node src/index.js",
     "start:db": "pg_ctl -D /usr/local/var/postgres start",
     "stop:db": "pg_ctl -D /usr/local/var/postgres stop",
+    "clean": "rm -rf node_modules",
     "test": "echo \"No test specified\" && exit 0"
   },
   "keywords": [],
@@ -29,7 +30,7 @@
     "graphql-resolvers": "^0.3.3",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.11.0",
-    "sequelize": "^5.8.6",
+    "sequelize": "^5.18.4",
     "uuid": "^3.3.2"
   }
 }
