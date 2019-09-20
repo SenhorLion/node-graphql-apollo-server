@@ -36,16 +36,20 @@ export default {
       },
     ),
 
-    updateMessage: async (parent, { id, text }, { models }) => {
-      try {
-        return await models.Message.update(
-          { text },
-          { returning: true, where: { id } },
-        );
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
+    updateMessage: combineResolvers(
+      isAuthenticated,
+      isMessageOwner,
+      async (parent, { id, text }, { models }) => {
+        try {
+          return await models.Message.update(
+            { text },
+            { returning: true, where: { id } },
+          );
+        } catch (error) {
+          throw new Error(error);
+        }
+      },
+    ),
   },
 
   Message: {

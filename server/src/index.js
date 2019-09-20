@@ -11,6 +11,7 @@ import jwt from 'jsonwebtoken';
 import models, { sequelize } from './models';
 import schema from './schema';
 import resolvers from './resolvers';
+import { ROLES } from './resolvers/auth';
 
 const app = express();
 
@@ -59,7 +60,7 @@ const server = new ApolloServer({
 // Add Express as middleware, and specify path to graphql API
 server.applyMiddleware({ app, path: '/graphql' });
 
-const eraseDatabaseOnSync = false;
+const eraseDatabaseOnSync = true;
 
 const createUsersWithMessages = async () => {
   await models.User.create(
@@ -67,6 +68,7 @@ const createUsersWithMessages = async () => {
       username: 'lionela',
       email: 'lion@me.com',
       password: '1234567',
+      role: ROLES.ADMIN,
       messages: [
         {
           text: 'Lorem ipsum dolor sitamec',
