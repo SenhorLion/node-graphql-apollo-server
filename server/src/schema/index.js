@@ -8,6 +8,9 @@ import userSchema from './user';
 import messageSchema from './message';
 
 const linkSchema = gql`
+  # custom date scalar
+  scalar Date
+
   type Query {
     _: Boolean
   }

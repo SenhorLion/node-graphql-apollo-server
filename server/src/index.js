@@ -62,7 +62,7 @@ server.applyMiddleware({ app, path: '/graphql' });
 
 const eraseDatabaseOnSync = true;
 
-const createUsersWithMessages = async () => {
+const createUsersWithMessages = async date => {
   await models.User.create(
     {
       username: 'lionela',
@@ -72,6 +72,7 @@ const createUsersWithMessages = async () => {
       messages: [
         {
           text: 'Lorem ipsum dolor sitamec',
+          createdAt: date.setSeconds(date.getSeconds() + 1),
         },
       ],
     },
@@ -86,9 +87,11 @@ const createUsersWithMessages = async () => {
       messages: [
         {
           text: 'Booba is King!',
+          createdAt: date.setSeconds(date.getSeconds() + 2),
         },
         {
           text: 'The ghosty one!',
+          createdAt: date.setSeconds(date.getSeconds() + 3),
         },
       ],
     },
@@ -98,7 +101,7 @@ const createUsersWithMessages = async () => {
 
 sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
   if (eraseDatabaseOnSync) {
-    createUsersWithMessages();
+    createUsersWithMessages(new Date());
   }
   app.listen({ port: 8000 }, () => {
     console.log('Apollo Server on http://localhost:8000/graphql');
