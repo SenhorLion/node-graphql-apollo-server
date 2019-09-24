@@ -3,7 +3,8 @@ import { gql } from 'apollo-server-express';
 export default gql`
   extend type Query {
     messages: [Message!]!
-    messagesPaged(offset: Int!, limit: Int!): [Message!]!
+    messagesPaged(offset: Int, limit: Int): [Message!]!
+    messagesPagedCursor(cursor: String, limit: Int): [Message!]!
     message(id: ID!): Message!
   }
 
